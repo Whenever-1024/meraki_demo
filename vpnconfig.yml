@@ -1,0 +1,39 @@
+peers:
+  primary-peer:
+    name: my peer
+    publicIp: 123.123.123.123
+    privateSubnets:
+      - 192.168.3.0/24
+      - 192.168.4.0/24
+    secret: thisismysecret
+    ikeVersion: 2
+    ipsecPolicies:
+      ikeCipherAlgo: triplesdes
+      ikeAuthAlgo: sha1
+      ikePrfAlgo: prfsha1
+      ikeDiffieHellmanGroup: group2
+      ikeLIfetime: 28800
+      childCipherAlgo: aes128
+      childAuthAlgo: sha1
+      childPfsGroup: disabled
+      childLifetime: 28800
+    networkTags: all
+  secondary-peer:
+    name: my peer
+    publicIp: 123.123.123.123
+    privateSubnets:
+      - 192.168.3.0/24
+      - 192.168.4.0/24
+    secret: thisismysecret
+    ikeVersion: 2
+    ipsecPolicies:
+      ikeCipherAlgo: triplesdes
+      ikeAuthAlgo: sha1
+      ikePrfAlgo: prfsha1
+      ikeDiffieHellmanGroup: group2
+      ikeLIfetime: 28800
+      childCipherAlgo: aes128
+      childAuthAlgo: sha1
+      childPfsGroup: disabled
+      childLifetime: 28800
+    networkTags: all

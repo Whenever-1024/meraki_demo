@@ -1,0 +1,16 @@
+  Name: ipsec-vpn-0622c8f235a0409c3-1
+  Public IP: 52.72.0.237
+  Private Subnet: 10.0.1.0/24
+  Secret: uAow6xu6Wtuiszlru4T8Y0toU9NVn7zz
+  IKE Version: 1
+  IPSec Policies:
+    IKE Cypher Algorithm: aes128
+    IKE Auth Algorithm: sha1
+    IKE Prf Algorithm: sha1
+    Diffie Hellman Group: group2
+    IKE Lifetime: 28800
+    Child Cypher Algorithm: aes128
+    Child Auth Algorithm: sha1
+    Child Prf Algorithm: 2
+    Child Lifetime: 3600
+  Network Tags: all

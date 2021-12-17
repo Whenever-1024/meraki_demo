@@ -1,0 +1,126 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block contents %}
+<div class="row">
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Third Party VPN Peers</h4>
+        <p class="card-title-desc">Description Here...</p>
+
+        <dir id='id_view'>
+            <!-- <p>Third Party VPN Peers:</p> -->
+            {% for thd in data.thirdPartyVpnPeers%}
+            <p class='c1'>Peer Name: {{thd.name}}</p>
+            <p class='c2'>Public IP Address: {{thd.publicIp}}</p>
+              {% if thd.reachability == 'unreachable' %}
+             <div class="alert alert-danger" role="alert">VPN Status: {{thd.reachability}}</div>
+              {% else %}
+             <div class="alert alert-success" role="alert">VPN Status: {{thd.reachability}}</div>
+              {% endif %}
+            {% endfor %}
+            <form action="{% url 'getData' %}">
+                <!-- <input type="submit" value="Get VPNs Status"> -->
+                <button type="submit" class="btn btn-primary">Get VPN Status</button>
+            </form>
+    </dir>
+   </div>
+  </div>
+ </div>
+ <div class="col-xl-6">
+   <div class="card">
+     <div class="card-body">
+       <h4 class="card-title">AWS VPN Tunnel Failover</h4>
+       <p class="card-title-desc">This will be used for enabling and disabling VPN connections in case of link down.</p>
+       <div class="row">
+         <div class=col-sm-6>
+           {% if data.thirdPartyVpnPeers.0.publicIp == pconfig.peers.0.publicIp %}
+           <p class="alert alert-success" role="alert">Primary AWS VPN</p>
+           {% else %}
+           <p class="alert alert-danger" role="alert">Primary AWS VPN</p>
+            {% endif %}
+           {% comment %} {% for key, value in pconfig.peers.0.items %}
+           {% if key != 'ipsecPolicies' %}
+           <li>{{key}}: {{value}}</li>
+           {% else %}
+           <li>{{key}}</li>
+           <ul>
+             {% for key1, value1 in value.items %}
+             <li>{{key1}}: {{value1}}</li>
+             {% endfor %}
+           </ul>
+           {% endif %}
+           {% endfor %} {% endcomment %}
+           <li>Name: {{pconfig.peers.0.name}}</li>
+           <li>Public IP: {{pconfig.peers.0.publicIp}}</li>
+           <li>Private Subnet: {{pconfig.peers.0.privateSubnets}}</li>
+           <li>Secret: {{pconfig.peers.0.secret}}</li>
+           <li>IKE Version: {{pconfig.peers.0.ikeVersion}}</li>
+           <li>IPSec Policies: </li>
+           <ul>
+             <li>IKE Cypher Algorithm: {{pconfig.peers.0.ipsecPolicies.ikeCipherAlgo}}</li>
+             <li>IKE Auth Algorithm: {{pconfig.peers.0.ipsecPolicies.ikeAuthAlgo}}</li>
+             <li>IKE Prf Algorithm: {{pconfig.peers.0.ipsecPolicies.ikePrfAlgo}}</li>
+             <li>Diffie Hellman Group: {{pconfig.peers.0.ipsecPolicies.ikeDiffieHellmanGroup}}</li>
+             <li>IKE Lifetime: {{pconfig.peers.0.ipsecPolicies.ikeLifetime}}</li>
+             <li>Child Cypher Algorithm: {{pconfig.peers.0.ipsecPolicies.childCipherAlgo}}</li>
+             <li>Child Auth Algorithm: {{pconfig.peers.0.ipsecPolicies.childAuthAlgo}}</li>
+             <li>Child Prf Algorithm: {{pconfig.peers.0.ipsecPolicies.childPfsGroup}}</li>
+             <li>Child Lifetime: {{pconfig.peers.0.ipsecPolicies.childLifetime}}</li>
+           </ul>
+           <li>Network Tags: {{pconfig.peers.0.networkTags}}</li>
+         </div>
+         <div class=col-sm-6>
+          {% if data.thirdPartyVpnPeers.0.publicIp == sconfig.peers.0.publicIp %}
+           <p class="alert alert-success" role="alert">Secondary AWS VPN</p>
+           {% else%}
+           <p class="alert alert-danger" role="alert">Secondary AWS VPN</p>
+           {% endif %}
+           <li>Name: {{sconfig.peers.0.name}}</li>
+           <li>Public IP: {{sconfig.peers.0.publicIp}}</li>
+           <li>Private Subnet: {{sconfig.peers.0.privateSubnets}}</li>
+           <li>Secret: {{sconfig.peers.0.secret}}</li>
+           <li>IKE Version: {{sconfig.peers.0.ikeVersion}}</li>
+           <li>IPSec Policies: </li>
+           <ul>
+             <li>IKE Cypher Algorithm: {{sconfig.peers.0.ipsecPolicies.ikeCipherAlgo}}</li>
+             <li>IKE Auth Algorithm: {{sconfig.peers.0.ipsecPolicies.ikeAuthAlgo}}</li>
+             <li>IKE Prf Algorithm: {{sconfig.peers.0.ipsecPolicies.ikePrfAlgo}}</li> 
+             <li>Diffie Hellman Group: {{sconfig.peers.0.ipsecPolicies.ikeDiffieHellmanGroup}}</li>
+             <li>IKE Lifetime: {{sconfig.peers.0.ipsecPolicies.ikeLIfetime}}</li>
+             <li>Child Cypher Algorithm: {{sconfig.peers.0.ipsecPolicies.childCipherAlgo}}</li>
+             <li>Child Auth Algorithm: {{sconfig.peers.0.ipsecPolicies.childAuthAlgo}}</li>
+             <li>Child Prf Algorithm: {{sconfig.peers.0.ipsecPolicies.childPfsGroup}}</li>
+             <li>Child Lifetime: {{sconfig.peers.0.ipsecPolicies.childLifetime}}</li>
+           </ul>
+           <li>Network Tags: {{sconfig.peers.0.networkTags}}</li>
+           </ul>
+         </div>
+       </div>
+       <div class="row">
+        <div class="col-sm-6">
+          {% if data.thirdPartyVpnPeers.0.publicIp == pconfig.peers.0.publicIp %}
+          <form action="">
+            <button type="submit" class="btn btn-success" disabled>Enabled</button>
+          {% else %} 
+          <form action="{% url 'ConfigVPN' data.thirdPartyVpnPeers.0.publicIp %}">
+            <button type="submit" class="btn btn-danger">Enable VPN</button>
+          {% endif %}
+          </form>
+        </div>
+        <div class="col-sm-6">
+          {% if data.thirdPartyVpnPeers.0.publicIp == sconfig.peers.0.publicIp %}
+          <form action="">
+            <button type="submit" class="btn btn-success" disabled>Enabled</button>
+          {% else %} 
+          <form action="{% url 'ConfigVPN' data.thirdPartyVpnPeers.0.publicIp %}">
+            <button type="submit" class="btn btn-danger">Enable VPN</button>
+          {% endif %}
+          </form>
+        </div>
+      </div>
+  </div>
+ </div>
+</div>
+</div>
+{% endblock contents %}

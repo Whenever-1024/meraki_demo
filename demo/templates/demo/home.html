@@ -1,0 +1,15 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+        <form action="getData">
+            <input type="submit" value="Get VPN Status">
+        </form>
+        <dir id='id_view'>
+            <p>Third Party VPN Peers:</p>
+            {% for thd in data.thirdPartyVpnPeers%}
+            <p class='c1'>Peer Name: {{thd.name}}</p>
+            <p class='c2'>Public IP Address: {{thd.publicIp}}</p>
+            <p class='c2'>VPN Status: {{thd.reachability}}</p>
+            {% endfor %}
+
+        </dir>

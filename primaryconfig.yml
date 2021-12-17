@@ -1,0 +1,25 @@
+peers:
+- ikeVersion: '1'
+  ipsecPolicies:
+    childAuthAlgo:
+    - sha1
+    childCipherAlgo:
+    - aes128
+    childLifetime: 3600
+    childPfsGroup:
+    - group2
+    ikeAuthAlgo:
+    - sha1
+    ikeCipherAlgo:
+    - aes128
+    ikeDiffieHellmanGroup:
+    - group2
+    ikeLifetime: 28800
+  name: ipsec-vpn-0622c8f235a0409c3-0
+  networkTags:
+  - all
+  privateSubnets:
+  - 10.0.1.0/24
+  publicIp: 23.22.199.223
+  remoteId: 23.22.199.223
+  secret: X3xEFnsqmCKh3umwFNmd8pxQPiQaYmha

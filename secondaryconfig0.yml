@@ -1,0 +1,17 @@
+peers:
+  name: ipsec-vpn-0622c8f235a0409c3-1
+  publicIp: 52.72.0.237
+  privateSubnets: 10.0.1.0/24
+  secret: uAow6xu6Wtuiszlru4T8Y0toU9NVn7zz
+  ikeVersion: 1
+  ipsecPolicies:
+    ikeCipherAlgo: aes128
+    ikeAuthAlgo: sha1
+    ikePrfAlgo: sha1
+    ikeDiffieHellmanGroup: group2
+    ikeLIfetime: 28800
+    childCipherAlgo: aes128
+    childAuthAlgo: sha1
+    childPfsGroup: 2
+    childLifetime: 3600
+  networkTags: all
